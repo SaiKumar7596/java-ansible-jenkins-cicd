@@ -2,9 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Run CI/CD using Ansible') {
+        stage('Trigger Ansible CI/CD Pipeline') {
             steps {
-                sh 'ansible-playbook -i inventory.ini site.yml'
+                sh '''
+                ssh -o StrictHostKeyChecking=no ubuntu@18.116.65.231 \ 
+                "cd project-ansible && ansible-playbook -i inventory.ini site.yml"
+                '''
             }
         }
     }
